@@ -2,8 +2,12 @@ import {useEffect, useState} from "react";
 import {ethers} from 'ethers';
 import './App.css';
 import InfosAccount from "./components/InfosAccount";
+import firebase from "./Firebase";
+
+const ref = firebase.firestore().collection('whiteliste');
 
 function App() {
+  const [countData, setCountData] = useState(0);
   const [loader, setLoader] = useState(true);
   const [accounts, setAccounts] = useState([]);
   const [balance, setBalance] = useState();
@@ -13,6 +17,7 @@ function App() {
   useEffect(() => {
     getAccounts();
     setLoader(false);
+    getCount();
   }, [])
 
   //little security to check if app realy try to connect to MM
@@ -34,6 +39,15 @@ function App() {
   window.ethereum.on('disconnect', () => {
     window.location.reload();
   });
+
+  //get number of user whitelisted in firebase db
+  function getCount()
+  {
+    ref.get().then(function (querySnapshot) {
+      setCountData(querySnapshot.size);
+      console.log(querySnapshot)
+    })
+  }
 
   async function getAccounts() {
     if (typeof window.ethereum !== 'undefined') {
@@ -59,4 +73,5 @@ function App() {
 
 }
 
+export {ref}
 export default App;
