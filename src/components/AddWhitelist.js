@@ -68,9 +68,15 @@ function AddWhitelist(props) {
 
     return (
         <div>
-            <button className="btn" onClick={() => {
-                createDoc({address: props.accounts[0], id: uuidv4(), balance: props.balance})
-            }}>Be Whitelisted</button>
+            {
+                props.balance > 0.3?
+                <button className="btn" onClick={() => {
+                    createDoc({address: props.accounts[0], id: uuidv4(), balance: props.balance})
+                }}>Be Whitelisted</button>
+                :
+                ''
+            }
+
         </div>
     );
 }
