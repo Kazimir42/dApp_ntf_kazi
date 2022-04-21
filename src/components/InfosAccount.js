@@ -10,7 +10,7 @@ function InfosAccount (props) {
                 </div>
                 :
                 <div>
-                    <p>{props.error}</p>
+                    <p></p>
                 </div>
             }
         </div>
