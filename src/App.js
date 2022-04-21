@@ -3,6 +3,7 @@ import {ethers} from 'ethers';
 import './App.css';
 import InfosAccount from "./components/InfosAccount";
 import firebase from "./Firebase";
+import AddWhitelist from "./components/AddWhitelist";
 
 const ref = firebase.firestore().collection('whiteliste');
 
@@ -32,12 +33,13 @@ function App() {
 
   //refresh page if user switch network
   window.ethereum.on('chainChanged', () => {
-    window.location.reload();
+    console.log('relaod')
+    window.location.reload(true);
   });
 
   //refresh page if user disconnect
   window.ethereum.on('disconnect', () => {
-    window.location.reload();
+    window.location.reload(true);
   });
 
   //get number of user whitelisted in firebase db
@@ -50,15 +52,27 @@ function App() {
   }
 
   async function getAccounts() {
+    //get account
     if (typeof window.ethereum !== 'undefined') {
-      let accounts = await window.ethereum.request({method: 'eth_requestAccounts'})
-      setAccounts(accounts);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      //get the eth balance in WEI of connected account
-      const balance = await provider.getBalance(accounts[0]);
-      // balance WEI -> ETH
-      const balanceInEth = ethers.utils.formatEther(balance)
-      setBalance(balanceInEth);
+      //get the chain id to check if nice network
+      let chainId = await window.ethereum.request({method: 'eth_chainId'})
+      if (chainId === "0x1" || chainId === "0x3" || chainId === "0x4" || chainId === "0x5" || chainId === "0x2a")
+      {
+        let accounts = await window.ethereum.request({method: 'eth_requestAccounts'})
+        setAccounts(accounts);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        //get the eth balance in WEI of connected account
+        const balance = await provider.getBalance(accounts[0]);
+        // balance WEI -> ETH
+        const balanceInEth = ethers.utils.formatEther(balance)
+        setBalance(balanceInEth);
+      }
+      else
+      {
+        setError('Wrong network')
+      }
+    }else{
+      setError('Not connected')
     }
   }
 
@@ -66,8 +80,8 @@ function App() {
     return (
         <div className="App">
           <button className="connect_btn" onClick={getAccounts}>Connect Metamask</button>
-          <InfosAccount loader={loader} accounts={accounts} balance={balance}/>
-
+          <InfosAccount loader={loader} accounts={accounts} balance={balance} error={error}/>
+          <AddWhitelist />
         </div>
     );
 

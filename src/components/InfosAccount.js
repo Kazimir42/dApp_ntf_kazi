@@ -10,7 +10,7 @@ function InfosAccount (props) {
                 </div>
                 :
                 <div>
-                    <p>Not connected</p>
+                    <p>{props.error}</p>
                 </div>
             }
         </div>

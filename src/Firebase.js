@@ -3,7 +3,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 const firebaseConfig = {
-    apiKey: "YPUTAPIKEY",
+    apiKey: "YOURAPIKEY",
     authDomain: "nftwhitelistekazi.firebaseapp.com",
     projectId: "nftwhitelistekazi",
     storageBucket: "nftwhitelistekazi.appspot.com",
