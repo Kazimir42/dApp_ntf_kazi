@@ -10,7 +10,6 @@ function InfosAccount (props) {
                 </div>
                 :
                 <div>
-                    <p></p>
                 </div>
             }
         </div>

@@ -2,10 +2,8 @@ import {useEffect, useState} from "react";
 import {ethers} from 'ethers';
 import './App.css';
 import InfosAccount from "./components/InfosAccount";
-import firebase from "./Firebase";
 import AddWhitelist from "./components/AddWhitelist";
 
-const ref = firebase.firestore().collection('whiteliste');
 
 function App() {
     const [countData, setCountData] = useState(0);
@@ -41,11 +39,9 @@ function App() {
         window.location.reload();
     });
 
-    //get number of user whitelisted in firebase db
+    //get number of user whitelisted
     function getCount() {
-        ref.get().then(function (querySnapshot) {
-            setCountData(querySnapshot.size);
-        })
+
     }
 
     async function getAccounts() {
@@ -84,5 +80,4 @@ function App() {
 
 }
 
-export {ref}
 export default App;
