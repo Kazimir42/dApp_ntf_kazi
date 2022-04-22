@@ -49,7 +49,7 @@ function App() {
         if (typeof window.ethereum !== 'undefined') {
             //get the chain id to check if nice network
             let chainId = await window.ethereum.request({method: 'eth_chainId'})
-            if (chainId === "0x1" || chainId === "0x3" || chainId === "0x4" || chainId === "0x5" || chainId === "0x2a") {
+            if (chainId === "0x1" || chainId === "0x3" || chainId === "0x4" || chainId === "0x5" || chainId === "0x2a" || chainId === "0x539") {
                 let accounts = await window.ethereum.request({method: 'eth_requestAccounts'})
                 setAccounts(accounts);
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
