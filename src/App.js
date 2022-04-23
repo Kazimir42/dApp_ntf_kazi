@@ -118,7 +118,7 @@ function App() {
                 const leaf = keccak256(accounts[0]);
 
                 //create proof of merkle
-                const proof = tree.getHexProof();
+                const proof = tree.getHexProof(leaf);
 
                 try {
                     let overrides = {
@@ -126,7 +126,7 @@ function App() {
                         value: price
                     }
                     //call function mintNFT of contract
-                    const transaction = await contract.mintNTF(accounts[0], proof, overrides)
+                    const transaction = await contract.mintNFT(accounts[0], proof, overrides)
                     await transaction.wait();
                 }catch(error) {
                     console.log(error)
@@ -144,6 +144,7 @@ function App() {
             <InfosAccount loader={loader} accounts={accounts} balance={balance} error={error}/>
             <AddWhitelist countData={countData} setCountData={setCountData} getCount={getCount} balance={balance}
                           setBalance={setBalance} setError={setError} setSuccess={setSuccess} accounts={accounts}/>
+            <br /><br />
             <button onClick={mint}>MINT ONE NFT</button>
         </div>
     );

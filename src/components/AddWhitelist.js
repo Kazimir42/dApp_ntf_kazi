@@ -13,7 +13,7 @@ function AddWhitelist(props) {
                 props.balance > 0.3?
                 <button className="btn" onClick={() => {
                     registerToWhitelist({address: props.accounts[0], balance: props.balance})
-                }}>Be Whitelisted</button>
+                }}>Be Whitelisted (not working)</button>
                 :
                 ''
             }
